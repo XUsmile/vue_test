@@ -1,0 +1,122 @@
+.success-html .main {
+  min-height: 100%;
+  background: url('./img/bg_2.jpg') no-repeat;
+  background-size: 100% 100%;
+}
+.success-html .box {
+  position: relative;
+  top: 1.24rem;
+  left: 50%;
+  margin-left: -2.4rem;
+  width: 4.8rem;
+  height: 5.13rem;
+}
+.success-html .img-box {
+  width: 4.8rem;
+  height: 5.13rem;
+  /* background: url('http://images.mizholdings.com/a0465f5d-b6c2-4000-8e53-f4b30b9fa7aa.jpg'); */
+  -webkit-mask-image: url('./img/bgImg.png');
+  -webkit-mask-clip: border;
+  position: absolute;
+  background-size: cover;
+  -webkit-mask-size: cover;
+  background-position:center; 
+  position: relative;
+}
+.success-html .mask {
+  content: '';
+  position: absolute;
+  left: -0.9rem;
+  top: -0.3rem;
+  background: url('./img/mask.png');
+  background-size: 100% 100%;
+  width: 6.28rem;
+  height: 6.34rem;
+}
+.success-html .txt {
+  position: absolute;
+  top: 7.12rem;
+  left: 0;
+  width: 100%;
+}
+.success-html .success-txt {
+  width: 1.87rem;
+  height: 0.42rem;
+  margin: 0 auto 0.3rem;
+}
+.success-html .success-txt img {
+  width: 100%;
+}
+.success-html .txt p {
+  line-height: 1.6em;
+  color: #282828;
+  font-size: 0.3rem;
+  padding: 0 1.05rem;
+}
+.success-html .txt p i {
+  display: inline-block;
+  width: 0.33rem;
+  height: 0.22rem;
+  background: url('./img/quotes.png');
+  background-size: 100% 100%;
+}
+.success-html .txt p i:last-child {
+  transform: rotate(180deg);
+}
+.success-html .addr-modal-btn {
+  width: 3.42rem;
+  height: 0.9rem;
+  line-height: 0.9rem;
+  background: #e5007c;
+  font-weight: bold;
+  font-size: 0.36rem;
+  text-align: center;
+  color: #fff;
+  border-radius: 25px;
+  top: 7.63rem;
+  left: 0;
+  right: 0;
+  margin: 0.78rem auto 0;
+}
+.success-html .addr-modal {
+  display: none;
+  padding: 0.96rem 0.4rem;
+}
+.success-html .addr-modal input {
+  width: 3.2rem;
+  border: 1px solid #e5007c;
+  height: 0.5rem;
+  margin-bottom: 0.3rem;
+  outline: none;
+  padding: 0 0.15rem;
+}
+.success-html .addr-select {
+  display: inline-block;
+  width: 3.2rem;
+}
+.success-html .addr-modal select {
+  border: 1px solid #e5007c;
+}
+.success-html .addr-submit {
+  width: 3.33rem;
+  height: 0.7rem;
+  line-height: 0.7rem;
+  background: #e5007c;
+  font-size: 0.36rem;
+  text-align: center;
+  color: #fff;
+  border-radius: 25px;
+  margin: 0.45rem auto 0;
+}
+.success-html .addr-modal ul li p {
+  display: inline-block;
+  width: 1.25rem;
+  margin-right: 0.28rem;
+}
+.success-html .pro,
+.success-html .city,
+.success-html .area {
+  width: 1.01rem;
+  height: 0.5rem;
+  margin-bottom: 0.3rem;
+}

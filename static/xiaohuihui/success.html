@@ -1,0 +1,100 @@
+<html lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <meta charset="UTF-8">
+  <meta content="width=device-width,initial-scale=1.0" name="viewport">
+  <meta content="yes" name="apple-mobile-web-app-capable">
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="format-detection" content="email=no" />
+  <meta name="format-detection" content="address=no" />
+  <link rel="stylesheet" href="./common.css">
+  <link rel="stylesheet" href="./success.css">
+  <script>
+    var deviceWidth = document.documentElement.clientWidth;
+    if (deviceWidth > 750) deviceWidth = 750;
+    document.documentElement.style.fontSize = deviceWidth / 7.5 + 'px';
+  </script>
+  <script>
+
+  </script>
+</head>
+
+<body>
+  <div class="modal addr-modal">
+    <div class="title">
+      <img src="./img/addr-title.png" alt="">
+    </div>
+    <div class="close-btn">
+      <img src="./img/x.png" alt="">
+    </div>
+    <form id='addrForm'>
+      <ul>
+        <li>
+          <p>姓名</p>
+          <input style='margin-left: 0.07rem' type="text">
+        </li>
+        <li>
+          <p>手机号</p>
+          <input style='margin-left: 0.07rem' type="number">
+        </li>
+        <li>
+          <p>所在区域</p>
+          <div class='addr-select' data-toggle="distpicker">
+            <select class='pro' data-province="省份" name='pro'></select>
+            <select class='city' data-city="城市" name='city'></select>
+            <select class='area' data-district="区县" name='area'></select>
+          </div>
+        </li>
+        <li>
+          <p>详细地址</p>
+          <input style='height: 1.1rem' type="textarea">
+        </li>
+      </ul>
+      <div class="addr-submit">确定</div>
+    </form>
+  </div>
+  <div class="main">
+    <div class="box">
+      <div class="img-box"></div>
+      <div class="mask"></div>
+    </div>
+    <div class="txt">
+      <div class="success-txt">
+        <img src="./img/success-txt.png" alt="">
+      </div>
+      <p>
+        <i></i> &nbsp;恭喜您获得小米手环一个。除此之外您免费获得2017年11月19日下午13:00直接抽取iPhone8的机会。&nbsp;
+        <i></i>
+      </p>
+      <div class="addr-modal-btn">填写收货地址</div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script type="text/javascript" src="./js/distpicker.data.js"></script>
+  <script type="text/javascript" src="./js/distpicker.min.js"></script>
+  <script type="text/javascript" src="./js/distpicker.esm.js"></script>
+
+  <script>
+    var addrBtn = document.querySelector('.addr-modal-btn')
+    var closeBtn = document.querySelector('.close-btn')
+    var addrModal = document.querySelector('.addr-modal')
+    var imgBox = document.querySelector('.img-box')
+    var _tempObjectURL = null
+    addrBtn.onclick = function () {
+      addrModal.style.display = 'block'
+    }
+    closeBtn.onclick = function () {
+      addrModal.style.display = 'none'
+    }
+    var imgUrl = sessionStorage.getItem('url')
+    var result = sessionStorage.getItem('result')
+    debugger
+    if(imgUrl!=null && result!=null){
+     imgBox.style.backgroundImage = 'url(' +imgUrl+')'
+    }
+  </script>
+</body>
+
+</html>

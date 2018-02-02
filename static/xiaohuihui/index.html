@@ -1,0 +1,242 @@
+<html lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <meta charset="UTF-8">
+  <meta content="width=device-width,initial-scale=1.0" name="viewport">
+  <meta content="yes" name="apple-mobile-web-app-capable">
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="format-detection" content="email=no" />
+  <meta name="format-detection" content="address=no" />
+  <link rel="stylesheet" href="./common.css">
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./success.css">
+  <script>
+    var deviceWidth = document.documentElement.clientWidth;
+    if (deviceWidth > 750) deviceWidth = 750;
+    document.documentElement.style.fontSize = deviceWidth / 7.5 + 'px';
+  </script>
+</head>
+
+<body>
+  <div class="index-html">
+    <div class="modal index-modal">
+      <div class="title">
+        <img src="./img/rule-title.png" alt="">
+      </div>
+      <div class="close-btn">
+        <img src="./img/x.png" alt="">
+      </div>
+      <div class="txt">
+        <p>1、活动时间：2017年11月17日至2017年11月19日 ；</p>
+        <p>2、 实物奖品抽中后，以短信形式发送到中奖手机号，我们将根据您留下的联系地址进行配送。</p>
+      </div>
+    </div>
+    <div class="main">
+      <div class="mobile-box">
+        <input type="number" placeholder="请输入手机号" class="mobile-input">
+      </div>
+      <div class="upload-btn">
+        <span>上传照片</span>
+        <input type="file" accept="image/*" class="upload-input">
+      </div>
+      <div class="rule-btn">查看活动规则</div>
+    </div>
+    <div id="loadingToast" style="display: none;">
+      <div class="weui-mask_transparent"></div>
+      <div class="weui-toast">
+        <i class="weui-loading weui-icon_toast"></i>
+        <p class="weui-toast__content">上传中~</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="success-html" style="display:none;">
+    <div class="modal addr-modal">
+      <div class="title">
+        <img src="./img/addr-title.png" alt="">
+      </div>
+      <div class="addrcloseBtn close-btn">
+        <img src="./img/x.png" alt="">
+      </div>
+      <form id='addrForm'>
+        <ul>
+          <li>
+            <p>姓名</p>
+            <input style='margin-left: 0.07rem' type="text" class="name" name="username">
+          </li>
+          <!-- <li>
+            <p>手机号</p>
+            <input style='margin-left: 0.07rem' type="number" class="mobile" name="mobile">
+          </li> -->
+          <li>
+            <p>所在区域</p>
+            <div class='addr-select' data-toggle="distpicker">
+              <select class='pro' data-province="省份" name='pro' class="pro"></select>
+              <select class='city' data-city="城市" name='city' class="city"></select>
+              <select class='area' data-district="区县" name='area' class="area"></select>
+            </div>
+          </li>
+          <li>
+            <p>详细地址</p>
+            <input style='height: 1.1rem' type="textarea" class="detail-address" name="address">
+          </li>
+        </ul>
+        <div class="addr-submit">确定</div>
+      </form>
+    </div>
+    <div class="main">
+      <div class="box">
+        <div class="img-box"></div>
+        <div class="mask"></div>
+      </div>
+      <div class="txt">
+        <div class="success-txt">
+          <img src="./img/success-txt.png" alt="">
+        </div>
+        <p>
+          <i></i> &nbsp;
+          <span class="award-word">抱歉您未中奖</span>&nbsp;
+          <i></i>
+        </p>
+        <div class="addr-modal-btn" style="display:none">填写收货地址</div>
+      </div>
+    </div>
+  </div>
+  <script src="https://unpkg.com/flyio/dist/fly.min.js"></script>
+  <script src="./js/URLSearchParams.js"></script>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script type="text/javascript" src="./js/distpicker.data.js"></script>
+  <script type="text/javascript" src="./js/distpicker.min.js"></script>
+  <script type="text/javascript" src="./js/distpicker.esm.js"></script>
+  <script>
+    var ruleBtn = document.querySelector('.rule-btn')
+    var mobileInput = document.querySelector('.mobile-input')
+    var closeBtn = document.querySelector('.close-btn')
+    var ruleModal = document.querySelector('.index-modal')
+    var inputUpload = document.querySelector('.upload-input')
+    var loading = document.querySelector('#loadingToast')
+    var addrBtn = document.querySelector('.addr-modal-btn')
+    var addrcloseBtn = document.querySelector('.addrcloseBtn')
+    var addrModal = document.querySelector('.addr-modal')
+    var imgBox = document.querySelector('.img-box')
+    var indexHtml = document.querySelector('.index-html')
+    var successHtml = document.querySelector('.success-html')
+    var awardWord = document.querySelector('.award-word')
+    var submit = document.querySelector('.addr-submit')
+    var imgUrl = ''
+    var resultId = ''
+    var url = ''
+    var _tempObjectURL = null
+
+    addrBtn.onclick = function () {
+      addrModal.style.display = 'block'
+    }
+    addrcloseBtn.onclick = function () {
+      addrModal.style.display = 'none'
+    }
+    ruleBtn.onclick = function () {
+      ruleModal.style.display = 'block'
+    }
+    closeBtn.onclick = function () {
+      ruleModal.style.display = 'none'
+    }
+    inputUpload.addEventListener('change', function (e) {
+      var mobileRgx = /^(13[0-9]|15[0-9]|17[0-9]|18[0-9]|14[0-9])[0-9]{8}$/;
+      if (!mobileRgx.test($('.mobile-input').val())) {
+        alert("请填写正确的手机号");
+        $('.mobile-input').val('')
+        inputUpload.value = ''
+        return;
+      }
+      var file = e.target.files[0];
+      url = getObjectURL(file)
+      var formData = new FormData();
+      formData.append('pic', file);
+      // formData.append('mobile', $('.mobile-input').val());
+      loading.style.display = ''
+      var params = new URLSearchParams();
+      fly.post("/api/imgUpload", formData).then(function (res) {
+        var data = res.data
+        if (data.code == '100000') {
+          imgUrl = 'http://jtyh.shuxihu.cn' + data.data.msg
+          params.append('imgUrl', imgUrl);
+          params.append('mobile', $('.mobile-input').val());
+          return fly.post('/api/addDo', params)
+        } else {
+          loading.style.display = 'none'
+          alert(data.data.msg)
+        }
+
+      }).then(function (res) {
+        var data = res.data
+        if (data.code == '100000' || data.code == '000007') {
+          resultId = data.data.id
+          indexHtml.style.display = 'none'
+          successHtml.style.display = ''
+          if (resultId != 0) {
+            addrBtn.style.display = ''
+          }
+          imgBox.style.backgroundImage = 'url(' + url + ')'
+          awardWord.innerHTML = data.data.msg
+        } else {
+          loading.style.display = 'none'
+          alert(data.data.msg)
+        }
+
+      }).catch(function (err) {
+        console.log(err)
+        loading.style.display = 'none'
+        alert('网络错误！')
+      })
+    })
+    submit.addEventListener('click', function () {
+      var username = $('.name').val()
+      // var mobile = $('.mobile').val()
+      var pro = $('.pro').val()
+      var city = $('.city').val()
+      var area = $('.area').val()
+      var detailAddr = $('.detail-address').val()
+      if (!username || !pro || !city || !area || !detailAddr) {
+        alert('请完善信息')
+        return
+      }
+      // var mobileRgx = /^(13[0-9]|15[0-9]|17[0-9]|18[0-9]|14[0-9])[0-9]{8}$/;
+      // if (!mobileRgx.test(mobile)) {
+      //   alert("手机号码不正确");
+      //   return;
+      // }
+      var params = new URLSearchParams();
+      params.append('id', resultId)
+      // params.append('mobile', mobile)
+      params.append('address', pro + city + area + detailAddr)
+      params.append('username', username)
+      fly.post('/api/addAddress', params).then(function (res) {
+        var data = res.data
+        if (data.code == '100000') {
+          alert('填写成功')
+          addrModal.style.display = 'none'
+          addrBtn.style.display = 'none'
+        } else {
+          alert(data.data.msg)
+        }
+
+      }).catch(function (err) {
+        alert('网络错误！')
+      })
+    })
+
+    function getObjectURL(file) {
+      var url = window.URL || window.webkitURL || window.mozURL;
+      if (_tempObjectURL != null) {
+        url.revokeObjectURL(_tempObjectURL)
+        _tempObjectURL = null;
+      }
+      _tempObjectURL = url.createObjectURL(file);
+      return _tempObjectURL
+    }
+  </script>
+</body>
+
+</html>

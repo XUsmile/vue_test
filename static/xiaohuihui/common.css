@@ -1,0 +1,56 @@
+body,
+input,
+textarea,
+button {
+    font-size: 12px;
+    line-height: 1;
+    font-family: "微软雅黑", "黑体", "宋体";
+    color: #666
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.modal{
+  position: fixed;
+  top: 2.18rem;
+  left: 50%;
+  width: 5.8rem;
+  margin-left: -2.9rem;
+  background: #faf1f6;
+  color: #000000;
+  font-size: 0.28rem;
+  border: 2px solid #e5007c;
+  border-radius: 4px;
+  z-index: 666;
+}
+.close-btn{
+  position: absolute;
+  right: -0.3rem;
+  top: -0.3rem;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: #e5007c;
+}
+.close-btn img{
+  width: 0.23rem;
+  height: 0.23rem;
+  display: block;
+  margin: 0.16rem auto 0;
+}
+.title{
+  position: absolute;
+  top: -0.52rem;
+  left: 50%;
+  width: 4.63rem;
+  height: 1.04rem;
+  margin-left: -2.31rem;
+}
+.title img{
+  display: block;
+  width: 100%;
+}
